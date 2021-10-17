@@ -1,0 +1,122 @@
+<html>
+  <style>
+    body {
+      margin: 0px;
+    }
+  
+    header {
+      background-color: #525252;
+      position: fixed;
+      display: flex;
+      width: 100%;
+      height: 48px;
+      top: 0px;
+      left: 0px;
+    }
+  
+    main {
+      display: flex;
+      background-color: lightgray;
+      height: 500%;
+      color: white;
+    }
+  
+    #pfp {
+      float: right;
+      margin-left: auto;
+      margin-right: 0;
+    }
+  
+    #pic {
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      float: right;
+    }
+  
+    .dropdown {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+  
+    .show {
+      display: block;
+    }
+  
+    /* Links inside the dropdown */
+    .dropdown a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+  
+    .dropdown a:hover {
+      background-color: #ddd
+    }
+  
+    .helement {
+      height: 32px;
+      margin: 8px;
+    }
+  
+    #logo {
+      width: 20%;
+    }
+  
+    #empty {
+      width: 50%;
+    }
+  
+    #account {
+      width: 30%
+    }
+  
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+  
+    div.container {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px;
+      width: 400px;
+      margin: auto;
+    }
+  </style>
+  <script>
+    fetch('/header').then(resp => { return resp.text(); })
+      .then(function (data) {
+        document.getElementById('header').innerHTML = data;
+      });
+  
+    function accDropdown() {
+      document.getElementById("accDropdown").classList.toggle("show");
+    }
+  
+    window.onclick = function (event) {
+      if (!event.target.matches('#pic')) {
+        var dropdowns = document.getElementsByClassName("dropdown");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) if (dropdowns[i].classList.contains('show')) dropdowns[i].classList.remove('show');
+      }
+    }
+  </script>
+  
+<head>
+  <title>Profile</title>
+</head>
+
+<body>
+  <header style="position:sticky"></header>
+  <div id="header"></div>
+  <main>
+    <h1>wowie. oh boy. user #1</h1>
+  </main>
+</body>
+</html>

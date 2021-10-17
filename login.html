@@ -1,0 +1,350 @@
+<html>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&family=Staatliches&display=swap');
+  body {
+    font-family: Source Sans Pro;
+    margin: 0px;  
+  }
+
+  .error2 {
+    background-color: #ff808075;
+    padding: 15px 10px;
+    border-radius: 3px;
+    font-size: small;
+    color: #942020;
+    margin-bottom: 8px;
+  }
+
+  a.container {
+    font-size: 12px;
+  }
+
+  div.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    width: 400px;
+    margin: auto;
+    margin-top: 128px;
+  }
+
+  input[type=text],
+  input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .submitEnabled {
+    font-family: Staatliches;
+    width: 100%;
+    background-color: #52B788;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .submitEnabled:hover {
+    background-color: #74C69D;
+  }
+
+  .submitDisabled {
+    font-family: Staatliches;
+    width: 100%;
+    background-color: #888888;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .submitDisabled:hover {
+    background-color: #666666;
+  }
+</style>
+<!-- HEADER -->
+<style>
+  /* HEADER */
+  header {
+    font-family: Source Sans Pro;
+    background-color: #f2f2f2;
+    box-shadow: 0px 0px 15px grey;
+    position: fixed;
+    display: flex;
+    width: 100%;
+    min-height: 48px;
+    height: auto;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+  }
+
+  .helement {
+    height: 32px;
+    margin: 8px;
+    display: flex;
+  }
+
+  #logo {
+    width: 20%;
+  }
+
+  #empty {
+    display: inline-block;
+    width: 60%;
+  }
+
+  #account {
+    position: relative;
+    margin: auto;
+    padding: 8px;
+    width: 20%;
+  }
+
+  a#username {
+    font-size: 150%;
+    text-align: right;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    right: 24px;
+    transform: translate(-50%, -50%);
+  }
+
+  #pic {
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    right: -8px;
+    transform: translate(-50%, -50%);
+  }
+
+  #loginButton {
+    position: absolute;
+    left: 8px;
+    font-family: Staatliches;
+    width: 45%;
+    background-color: #cccccc;
+    color: white;
+    padding: 8px;
+    margin-right: 50%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  #loginButton:hover {
+    background-color: #c5c5c5;
+  }
+
+  #registerButton {
+    position: absolute;
+    right: 8px;
+    font-family: Staatliches;
+    width: 45%;
+    background-color: #52B788;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  #registerButton:hover {
+    background-color: #74C69D;
+  }
+
+  .dropdown {
+    display: none;
+    position: absolute;
+    text-align: right;
+    top: 40px;
+    right: 0px;
+    background-color: #f2f2f2;
+    min-width: 128px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .dropdown a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown a:hover {
+    background-color: #ddd
+  }
+
+  .show {
+    display: block;
+  }
+</style>
+<!-- HEADER -->
+<head>
+  <title>Login</title>
+</head>
+
+<body>
+  <header style="position:sticky"></header>
+  <header>
+    <div class="helement" id="logo">
+      <a href="/">LOGO</a>
+    </div>
+    <div style="text-align: center; color: #00f; text-shadow: 0 0 10px #00f; font-size: 20px;" class="helement"
+      id="empty">
+      <a id="announcement" style="text-align: center;"></a>
+    </div>
+    <div class="helement" id="account" style="font-size: 10;">
+
+    </div>
+  </header>
+  <script>
+    function accDropdown() {
+      document.getElementById("accDropdown").classList.toggle("show");
+    }
+    window.onclick = function (event) {
+      if (!event.target.matches('#pic')) {
+        var dropdowns = document.getElementsByClassName("dropdown");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) if (dropdowns[i].classList.contains('show')) dropdowns[i].classList.remove('show');
+      }
+    }
+    function getCookie(cname) {
+      var name = cname + "=";
+      var ca = document.cookie.split(';');
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return;
+    }
+
+    window.onload = function () {
+      fetch('/announcement').then(resp => { return resp.text(); })
+          .then(function (data) {
+            document.getElementById("announcement").innerText = data;
+          });
+      if (getCookie("uid") && getCookie("token")) {
+        var username
+        fetch('/users/' + getCookie("uid") + '/username').then(resp => { return resp.text(); })
+          .then(function (data) {
+            username = data
+            document.getElementById("account").innerHTML = `<a id="username">@${String(username.replace(/"/g, ''))}</a>
+            <div id="pfp">
+            <img id="pic" onclick="accDropdown()"
+                src="http://boopurno.es/users/${getCookie("uid")}/avatar"
+                alt="pfp">
+            <div id="accDropdown" class="dropdown">
+                <a href="/settings">Settings</a>
+                <a href="/profile">Profile</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>`;
+          });
+      } else {
+        console.log("not logged in");
+        document.getElementById("account").innerHTML = `<button id="loginButton" onclick="location.href='/login'" type="button">Login</button>
+        <button id="registerButton" onclick="location.href='/register'" type="button">Register</button>`;
+      }
+    }
+  </script>
+  <main>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LchWzkbAAAAAN2QKMBHHHgQT6ZVel9WZCqBj6sL" async
+      defer></script>
+    <div class="container">
+      <form name="login" action="/login/login" method="POST">
+        <label for="lname">Username</label>
+        <input type="text" onKeyup="checkform('username')" id="username" name="user" placeholder="Username" />
+
+        <label for="pass">Password</label>
+        <input type="password" onKeyup="checkform('password')" id="password" name="pass" placeholder="Password" />
+        <!-- <div class="g-recaptcha" data-sitekey="6LchWzkbAAAAAN2QKMBHHHgQT6ZVel9WZCqBj6sL"></div> -->
+        <input class="g-recaptcha submitDisabled" data-sitekey="6LchWzkbAAAAAN2QKMBHHHgQT6ZVel9WZCqBj6sL"
+          data-callback='onSubmit' data-action='submit' type="submit" id="login" value="Login" />
+        <div style="display:none;" id="result" class="error2">unknown error.</div>
+      </form>
+      <a class="container">Don't have an account?</a>
+      <a class="container" href="../register">Create one!</a>
+    </div>
+  </main>
+</body>
+<script>
+    function showResult(text) {
+    document.querySelector('#result').style.display = "block";
+    document.querySelector('#result').innerHTML = text;
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  if(urlParams.has("username")) showResult("Incorrect Username.");
+  if(urlParams.has("password")) showResult("Incorrect Password.");
+
+  function onloadCallback() {
+    grecaptcha.ready(function () {
+      grecaptcha.execute('6Lc7abAUAAAAAJt28TbC0dciNKqcHq4S_uMYBJgG', { action: 'demo' })
+        .then(function (token) {
+          document.querySelector('#login').addEventListener('click', handleClick(token));
+        });
+    });
+  }
+
+  function accDropdown() {
+    document.getElementById("accDropdown").classList.toggle("show");
+  }
+
+  window.onclick = function (event) {
+    if (!event.target.matches('#pic')) {
+      var dropdowns = document.getElementsByClassName("dropdown");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) if (dropdowns[i].classList.contains('show')) dropdowns[i].classList.remove('show');
+    }
+  }
+
+  document.getElementById('login').className = "submitDisabled";
+  document.getElementById('login').disabled = true;
+
+  function checkform(e) {
+    var f = document.forms["login"].elements;
+
+    var userOK;
+    if (!String(f["username"].value)) userOK = 0;
+    else userOK = 1;
+
+    var passOK;
+    if (!String(f["password"].value)) passOK = 0;
+    else passOK = 1;
+
+    if (passOK * userOK == 1) {
+      document.getElementById('login').disabled = false;
+      document.getElementById('login').className = "submitEnabled";
+    } else {
+      document.getElementById('login').disabled = true;
+      document.getElementById('login').className = "submitDisabled";
+    }
+  }
+
+  function onSubmit(token) {
+    document.forms["login"].submit();
+  }
+</script>
+
+</html>

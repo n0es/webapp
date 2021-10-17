@@ -1,0 +1,452 @@
+<html>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&family=Staatliches&display=swap');
+
+  body {
+    font-family: Source Sans Pro;
+    color: black;
+    margin: 0px;
+    overflow: overlay;
+  }
+
+  ::-webkit-scrollbar {
+    height: 90%;
+    width: 16px;
+    z-index: 1000;
+    background-color: transparent;
+    overflow: overlay;
+  }
+
+  ::-webkit-input-placeholder,
+  ::-webkit-scrollbar-thumb {
+    background-clip: padding-box;
+    border-radius: 16px;
+    border: 4px solid transparent;
+    background-color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    -webkit-transition: background-color 0.1s ease;
+    transition: background-color 0.1s ease;
+    overflow: overlay;
+  }
+
+  ::-webkit-input-placeholder:hover,
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  main {
+    display: grid;
+    background-color: lightgray;
+    height: 500%;
+    color: white;
+    padding: 16px;
+    margin: 8px;
+    row-gap: 8px;
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    grid-gap: 20px;
+  }
+
+  h1 {
+    font-family: Staatliches;
+  }
+
+  .tile {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    align-items: center;
+    box-shadow: 0px 0px 10px #c3c3c3;
+  }
+
+  .locked {
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    -webkit-user-drag: none;
+    box-shadow: 0px 0px 0px grey;
+  }
+
+  #friendsList {
+    border-radius: 5px;
+    max-height: 200px;
+    height: auto;
+    overflow: hidden scroll;
+    background-color: lightgray;
+    padding: 20px;
+    align-items: center;
+  }
+
+  #friendTab {
+    margin-bottom: 16px;
+  }
+
+  .friendUsername {
+    font-family: Staatliches;
+    align-self: flex-start;
+    float: left;
+  }
+
+  .friendStatus {
+    color: grey;
+    font-size: auto;
+  }
+
+  div.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    width: 400px;
+    margin: auto;
+  }
+</style>
+<!-- HEADER -->
+<style>
+  /* HEADER */
+  header {
+    font-family: Source Sans Pro;
+    background-color: #f2f2f2;
+    box-shadow: 0px 0px 15px grey;
+    min-height: 48px;
+    position: sticky;
+    display: flex;
+    height: auto;
+    width: 100%;
+    z-index: 1;
+    left: 0px;
+    top: 0px;
+  }
+
+  html {
+    background-color: lightgray;
+  }
+
+  main {
+    height: auto;
+    color: black;
+  }
+
+  .helement {
+    height: 32px;
+    margin: 8px;
+    display: flex;
+  }
+
+  #logo {
+    width: 20%;
+  }
+
+  #empty {
+    display: inline-block;
+    width: 60%;
+  }
+
+  #account {
+    position: relative;
+    margin: auto;
+    padding: 8px;
+    width: 20%;
+  }
+
+  #username {
+    font-size: 150%;
+    text-align: right;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    right: 24px;
+    transform: translate(-50%, -50%);
+  }
+
+  #pic {
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    right: -8px;
+    transform: translate(-50%, -50%);
+  }
+
+  #loginButton {
+    position: absolute;
+    left: 8px;
+    font-family: Staatliches;
+    width: 45%;
+    background-color: #cccccc;
+    color: white;
+    padding: 8px;
+    margin-right: 50%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  #loginButton:hover {
+    background-color: #c5c5c5;
+  }
+
+  #registerButton {
+    position: absolute;
+    right: 8px;
+    font-family: Staatliches;
+    width: 45%;
+    background-color: #52B788;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  #registerButton:hover {
+    background-color: #74C69D;
+  }
+
+  .dropdown {
+    display: none;
+    position: absolute;
+    text-align: right;
+    background-color: #f2f2f2;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  #accDropdown {
+    top: 40px;
+    right: 0px;
+    min-width: 128px;
+  }
+
+  #friendsDropdown {
+    position: relative;
+    min-width: 256px;
+    top: 0px;
+    right: 0px;
+  }
+
+  .dropdown a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown a:hover {
+    background-color: #ddd
+  }
+
+  .show {
+    display: block;
+  }
+</style>
+<!-- HEADER -->
+
+<head>
+  <title>Home</title>
+</head>
+
+<body>
+  <header>
+    <div class="helement" id="logo">
+      <a href="/">LOGO</a>
+    </div>
+    <div style="text-align: center; color: #00f; text-shadow: 0 0 10px #00f; font-size: 20px;" class="helement"
+      id="empty">
+      <a id="announcement" style="text-align: center;"></a>
+    </div>
+    <div class="helement" id="account" style="font-size: 10;"></div>
+  </header>
+  <main>
+    <div class="tile" id="info">
+      <div>
+        <h1>welcome</h1>
+      </div>
+      <div><a>this is website</a> <br>
+        <a>uhhhh</a> <br>
+        <a>make an account </a><a href="/register">here</a> <br>
+        <a>or </a><a href="/login">login</a> <br> <br>
+        <a>actual stuff coming soon</a> <br> <br>
+      </div>
+    </div>
+    <div class="tile" id="friends">
+      <div style="display: flex; justify-content: space-between;">
+        <h1>friends</h1>
+        <div id="friendsDropdown" class="dropdown">
+          <div><input type="text"></div>
+          <a href="/profile">Profile</a>
+          <a href="/logout">Logout</a>
+        </div>
+        <svg onclick="friendsDropdown()" style="width: 24px; float: right; cursor: pointer;"
+          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+          <g>
+            <g>
+              <path
+                d="M255.501,0.499c-81.448,0-147.711,66.264-147.711,147.711c0,50.449,25.429,95.065,64.137,121.724 c-36.139,12.471-69.263,33.071-97.091,60.899C26.577,379.093,0,443.254,0,511.501h39.922 c0-118.871,96.708-215.579,215.579-215.579c81.448,0,147.711-66.264,147.711-147.712S336.949,0.499,255.501,0.499z M255.501,256 c-59.435,0-107.789-48.354-107.789-107.789S196.066,40.421,255.501,40.421S363.29,88.775,363.29,148.211S314.936,256,255.501,256z" />
+            </g>
+          </g>
+          <g>
+            <g>
+              <polygon
+                points="428.164,387.743 428.164,303.906 388.242,303.906 388.242,387.743 304.405,387.743 304.405,427.665 388.242,427.665 388.242,511.501 428.164,511.501 428.164,427.665 512,427.665 512,387.743 		" />
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div id="friendsList">
+      </div>
+    </div>
+    <div class="tile" id="lobbies">
+      <h1>lobbies</h1>
+    </div>
+    <div class="tile locked" id="profile">
+      <h1>profile</h1>
+    </div>
+  </main>
+</body>
+<script>
+  function accDropdown() {
+    document.getElementById("accDropdown").classList.toggle("show");
+  }
+
+  function friendsDropdown() {
+    document.getElementById("friendsDropdown").classList.toggle("show");
+  }
+
+  window.onclick = function (event) {
+    if (!event.target.matches('#pic')) {
+      var dropdowns = document.getElementsByClassName("dropdown");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) if (dropdowns[i].classList.contains('show')) dropdowns[i].classList.remove('show');
+    }
+  }
+  function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return;
+  }
+
+  function goOnline() {
+    let uid = getCookie("uid");
+    let token = getCookie("token");
+    if (uid && token) {
+      if ("WebSocket" in window) {
+        var ws = new WebSocket("ws://boopurno.es:3000", "echo-protocol");
+        ws.onopen = function () {
+          ws.send(JSON.stringify({
+            uid,
+            token
+          }));
+        };
+
+        ws.onmessage = function (evt) {
+          data = JSON.parse(evt.data);
+          console.log(evt.data);
+          console.log(data)
+        };
+
+        ws.onclose = function () {
+        };
+      };
+    };
+  };
+
+  window.onclick = function (event) {
+    if (!event.target.matches('#pic')) {
+      var dropdowns = document.getElementsByClassName("dropdown");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) if (dropdowns[i].classList.contains('show')) dropdowns[i].classList.remove('show');
+    }
+  }
+
+  window.onload = function () {
+    goOnline()
+    if (getCookie("uid") && getCookie("token")) {
+      var username
+      fetch('/users/' + getCookie("uid") + '/friends').then(resp => { return resp.text(); })
+        .then(function (data) {
+          friends = JSON.parse(data);
+          friendHTML = "";
+          friends = [1, 1]
+          friends.forEach(friend => {
+            var friendUsername
+            fetch(`/users/${friend}/username`).then(resp => { return resp.text() }).then(function (data) {
+              friendUsername = String(data);
+              var friendStatus
+              fetch(`/users/${friend}/status`).then(resp => { return resp.json() }).then(function (data) {
+                friendStatus = data
+                friendHTML = friendHTML + `<div id="friendTab" style="display: flex; justify-content: space-between;">
+          <img style="width: 64px; height: 64px; border-radius: 50%;" draggable="false" src="http://boopurno.es/users/${friend}/avatar" alt="pfp">
+          <div style="width:20px"></div>
+          <div
+            style="display: flex; border-style: none none none solid; border-width: 7.5px; border-color: #${friendStatus.status == "online" ? "5CD85A" : friendStatus.status == "dnd" ? "FF0F39" : "DFDFDF"}; border-radius: 5px; width: 100%; background-color: white; padding: 10px;">
+            <div style="align-self: center;">
+              <a class="friendUsername">@${friendUsername}</a> <br />
+              <a class="friendStatus">${friendStatus.activity} - ${friendStatus.message}</a>
+            </div>
+            <svg style="margin-left: auto" height="48" width="16">
+              <polygon points="0,0 5,0 15,24 5,48 0,48 10,24" style="margin: 0 auto; display: block; fill: grey;" />
+            </svg>
+          </div>
+        </div>`;
+                document.getElementById("friendsList").innerHTML = friendHTML;
+              });
+            });
+          }); /*             <!--<svg height="16" width="16"> <circle cx="11" cy="11" r="4" stroke-width="3" fill="#5CD85A" /> red: #FF0F39 yellow: #FEDA15 green: #5CD85A </svg>-->*/
+        });
+    } else {
+      document.getElementById("friends").classList.add("locked");
+    }
+
+    fetch('/announcement').then(resp => { return resp.text(); })
+      .then(function (data) {
+        document.getElementById("announcement").innerText = data;
+      });
+    if (getCookie("uid") && getCookie("token")) {
+      var username
+      fetch('/users/' + getCookie("uid") + '/username').then(resp => { return resp.text(); })
+        .then(function (data) {
+          username = data
+          document.getElementById("account").innerHTML = `<a id="username">@${String(username.replace(/"/g, ''))}</a>
+            <div id="pfp">
+            <img id="pic" onclick="accDropdown()"
+                src="http://boopurno.es/users/${getCookie("uid")}/avatar"
+                alt="pfp">
+            <div id="accDropdown" class="dropdown">
+                <a href="/settings">Settings</a>
+                <a href="/profile">Profile</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>`;
+        });
+    } else {
+      console.log("not logged in");
+      document.getElementById("account").innerHTML = `<button id="loginButton" onclick="location.href='/login'" type="button">Login</button>
+        <button id="registerButton" onclick="location.href='/register'" type="button">Register</button>`;
+    }
+  }
+</script>
+
+</html>
